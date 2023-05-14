@@ -1,0 +1,41 @@
+{% extends "homepage.html"%}
+
+{% block titulo %}
+{{usuario.username}} - Pynterest
+{% endblock %}
+{% block body %}
+{% include 'navbar.html' %}
+
+
+{% if usuario.id != current_user.id %}
+
+<div class="pagwho">
+    <h1>Perfil de {{ usuario.username }}</h1>
+</div>
+
+{% endif %}
+
+
+
+{% if form %}
+<div class="container">
+    <form class="bloco-add-img" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <h2>{{ usuario.username }} - Enviar foto</h2>
+
+        <div class="bloco-input-botao">
+            <div class="bloco-arquivo">
+                {{ form.foto(class="botao-arquivo") }}
+            </div>
+            {{ form.botao_confirmacao(class="botao-login") }}
+        </div>
+    </form>
+    {% endif %}
+    <div class="conteudo">
+    {% for foto in usuario.fotos %}
+        <div class="bloco-imagem">
+            <img src="{{ foto.url_img }}"/>
+        </div>
+    {% endfor %}
+    </div>
+    {% endblock %}
