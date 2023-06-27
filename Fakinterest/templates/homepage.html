@@ -47,7 +47,7 @@
       <div class="container-popup">
 {% block formulario %}
         <form method="POST"  class="popup">
-            {{ form.csrf_token }}
+            {{ form[0].csrf_token }}
           <svg
             height="40"
             viewBox="-3 -3 82 82"
@@ -66,20 +66,28 @@
           <h2>Bem-vindo(a) ao Pynterest</h2>
 
           <div class="div-input">
-              {{ form.email.label(class="label") }}
-              {{ form.email(class="input") }}
+              {{ form[0].email.label(class="label") }}
+              {{ form[0].email(class="input") }}
           </div>
 
           <div class="div-input">
-              {{ form.senha.label(class="label") }}
-              {{ form.senha(class="input") }}
+              {{ form[0].senha.label(class="label") }}
+              {{ form[0].senha(class="input") }}
           </div>
 
           <div class="div-botao">
-              {{ form.botao_confirmas(class="botao-login") }}
+              {{ form[0].botao_confirmas(class="botao-login") }}
             <p>Caso não tenha uma conta, clique <a href="{{url_for('criar_conta')}}">aqui</a></p>
           </div>
         </form>
+        {% block javascript %}
+        <script>
+            var True = true, False = false
+            if ( {{ form[1] }}){
+                alert('E-mail ou senha errado...')
+            }
+        </script>
+    {% endblock %}
           {% endblock %}
       </div>
     </div>
