@@ -21,7 +21,7 @@ def home_page():
             return redirect(url_for('feed'))
         else:
             existe = True
-    app.logger.info('keeping server running...')
+    app.logger.warning('keeping server running...')
     return render_template(r'homepage.html', form=[formlogin, existe])
 
 
