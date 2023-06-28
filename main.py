@@ -12,7 +12,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 while True:
-    sleep(10)
+    sleep(600)
     app.logger.warning('keeping server running...')
 
 
