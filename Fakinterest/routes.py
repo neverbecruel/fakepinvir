@@ -5,22 +5,22 @@ from Fakinterest import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 from Fakinterest.forms import FormLogin, FormCriarConta, FormFotos
 from Fakinterest.models import Usuarios, Foto
-import json
+
+
+existe = False
 
 
 @app.route("/", methods=['GET', 'POST'])
 def home_page():
-    formlogin = FormLogin()
     global existe
-    existe = True
+    formlogin = FormLogin()
     if formlogin.validate_on_submit():
         usuario = Usuarios.query.filter_by(email=formlogin.email.data).first()
         if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
             login_user(usuario)
             return redirect(url_for('feed'))
         else:
-            existe = False
-            return redirect(url_for('home_page'))
+            existe = True
     return render_template(r'homepage.html', form=[formlogin, existe])
 
 
